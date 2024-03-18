@@ -6,10 +6,10 @@ import Blog from "./pages/blog";
 
 import IndexLight from "./pages/index-light";
 import AboutUs from "./pages/aboutus";
-import Pricing from "./pages/pricing";
-import Services from "./pages/services";
-import BlogDetails from "./pages/blog-detail";
-import Helpcenter from "./pages/helpcenter";
+// import Pricing from "./pages/pricing";
+// import Services from "./pages/services";
+// import BlogDetails from "./pages/blog-detail";
+// import Helpcenter from "./pages/helpcenter";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import ResetPassword from "./pages/reset-password";
