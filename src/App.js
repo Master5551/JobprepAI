@@ -17,7 +17,7 @@ import Terms from "./pages/terms";
 import Privacy from "./pages/privacy";
 import Error from "./pages/error";
 import Contact from "./pages/contact";
-// import Dictaphone from "./pages/mockinterview";
+import Dictaphone from "./pages/mockinterview";
 
 function App() {
   return (
