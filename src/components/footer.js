@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LogoLight from "../assets/images/logo-light.png";
 
-import {} from "../assets/icons/vander";
+import { } from "../assets/icons/vander";
 
 export default function Footer() {
   return (
@@ -32,10 +32,8 @@ export default function Footer() {
                   Start Your Free Trail.
                 </h4>
                 <p className="text-white/70 text-lg max-w-xl mx-auto">
-                  Artificial intelligence makes it fast easy to create content
-                  for your blog, social media, website, and more!
+                  JobPrepAI simplifies job preparation by providing personalized feedback and mock interviews, helping you excel in your career journey.
                 </p>
-
                 <div className="mt-6">
                   <Link
                     to=""

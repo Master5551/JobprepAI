@@ -9,7 +9,7 @@ import AboutImg from "../assets/images/about.jpg";
 import client1 from "../assets/images/client/01.jpg";
 import client2 from "../assets/images/client/02.jpg";
 
-import Blogs from "../components/blogs";
+
 import ClientsTwo from "../components/clientTwo";
 import Footer from "../components/footer";
 import NavLight from "../components/navlight";
@@ -113,40 +113,26 @@ export default function AboutUs() {
             />
             <div className="">
               <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
-                <span className="font-bold">Work smarter,</span> <br /> by using
-                AI not manually
+                <span className="font-bold">Achieve Efficiency</span> <br /> through AI-driven Solutions
               </h3>
               <p className="text-slate-400 max-w-xl">
-                "Usually, our colleagues don't jump in the air when they hear
-                e-learning, but the AI videos created with JobPrepAI have
-                sparked motivation that we haven't seen before."
+                "With JobPrepAI, witness a paradigm shift in traditional learning methods as AI-powered tools revolutionize the learning experience, fostering unprecedented motivation and engagement."
               </p>
 
               <ul className="list-none text-slate-400 mt-4">
                 <li className="mb-2 flex items-center">
                   <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" />{" "}
-                  Digital Marketing Solutions for Tomorrow
+                  Personalized Feedback to Enhance Learning
                 </li>
                 <li className="mb-2 flex items-center">
-                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" /> Our
-                  Talented & Experienced Marketing Agency
+                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" /> Accessible User Dashboard for Tracking Progress
                 </li>
                 <li className="mb-2 flex items-center">
-                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" />{" "}
-                  Create your own skin to match your brand
+                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" /> Seamless Integration for Streamlined Experience
                 </li>
               </ul>
-
-              <div className="mt-4">
-                <Link
-                  to=""
-                  className="hover:text-amber-400 font-medium duration-500"
-                >
-                  Read More{" "}
-                  <i className="mdi mdi-chevron-right text-[20px] align-middle"></i>
-                </Link>
-              </div>
             </div>
+
           </div>
         </div>
 
@@ -165,10 +151,10 @@ export default function AboutUs() {
                       } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(0)}
                   >
-                    <h5 className="text-base font-semibold">Drag and drop</h5>
+                    <h5 className="text-base font-semibold">Get Personalized Feedback</h5>
                     <p className="text-sm mt-1">
-                      Artificial intelligence makes it fast easy to create
-                      content for your video creations.
+                      JobPrepAI provides tailored feedback to enhance your performance in mock interviews and job preparation.
+
                     </p>
                   </button>
                 </li>
@@ -184,11 +170,11 @@ export default function AboutUs() {
                     onClick={() => setActiveIndex(1)}
                   >
                     <h5 className="text-base font-semibold">
-                      Improve your Talent
+                      Access User Dashboard
                     </h5>
                     <p className="text-sm mt-1">
-                      Artificial intelligence makes it fast easy to create
-                      content for your video creations.
+                      JobPrepAI offers a user-friendly dashboard for tracking your progress and optimizing your job preparation journey.
+
                     </p>
                   </button>
                 </li>
@@ -203,11 +189,11 @@ export default function AboutUs() {
                       } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(2)}
                   >
-                    <h5 className="text-base font-semibold">Go for Live</h5>
+                    <h5 className="text-base font-semibold">Enhance Communication Skills</h5>
                     <p className="text-sm mt-1">
-                      Artificial intelligence makes it fast easy to create
-                      content for your video creations.
+                      Refine and polish your speaking abilities through dedicated practice, enabling to articulate your thoughts with clarity and confidence.
                     </p>
+
                   </button>
                 </li>
               </ul>
@@ -251,10 +237,7 @@ export default function AboutUs() {
               The Team
             </h3>
 
-            <p className="text-slate-400 max-w-xl mx-auto">
-              Artificial intelligence makes it fast easy to create content for
-              your blog, social media, website, and more!
-            </p>
+
           </div>
 
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
@@ -285,7 +268,7 @@ export default function AboutUs() {
         </div>
 
         <ClientsTwo />
-        <Blogs />
+
       </section>
       <Footer />
       <Switcher />
