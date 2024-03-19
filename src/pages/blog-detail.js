@@ -59,7 +59,7 @@ export default function BlogDetails(){
                         
                         <div className="relative rounded-md border-s-4 border-amber-400 px-6 py-10 mt-4">
                             <p className="text-2xl font-medium">“ Its still not confirmed whether Google algorithm supports AI generated content or not “</p>
-                            <p className="text-slate-400 mt-4 text-end">- Mortal.Ai</p>
+                            <p className="text-slate-400 mt-4 text-end">- JobPrepAI</p>
                             <div className="absolute text-8xl -top-0 start-4 text-amber-500/10 dark:text-amber-500/20 -z-1">
                                 <i className="mdi mdi-format-quote-open"></i>
                             </div>

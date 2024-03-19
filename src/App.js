@@ -1,29 +1,26 @@
-import "./assets/css/tailwind.css";
-import "./assets/css/materialdesignicons.min.css";
 import { Route, Routes } from "react-router-dom";
-import Index from "./pages";
+import "./assets/css/materialdesignicons.min.css";
+import "./assets/css/tailwind.css";
 import Blog from "./pages/blog";
 
-import IndexLight from "./pages/index-light";
 import AboutUs from "./pages/aboutus";
-// import Pricing from "./pages/pricing";
-// import Services from "./pages/services";
-// import BlogDetails from "./pages/blog-detail";
-// import Helpcenter from "./pages/helpcenter";
-import Login from "./pages/login";
-import Signup from "./pages/signup";
-import ResetPassword from "./pages/reset-password";
-import Terms from "./pages/terms";
-import Privacy from "./pages/privacy";
-import Error from "./pages/error";
+import BlogDetails from "./pages/blog-detail";
 import Contact from "./pages/contact";
-import Dictaphone from "./pages/mockinterview";
+import Error from "./pages/error";
+import Helpcenter from "./pages/helpcenter";
+import IndexLight from "./pages/index-light";
+import Login from "./pages/login";
+import Pricing from "./pages/pricing";
+import Privacy from "./pages/privacy";
+import ResetPassword from "./pages/reset-password";
+import Services from "./pages/services";
+import Signup from "./pages/signup";
+import Terms from "./pages/terms";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Dictaphone />} />
-
+      <Route path="/" element={<IndexLight />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/pricing" element={<Pricing />} />

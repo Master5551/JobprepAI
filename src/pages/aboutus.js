@@ -8,10 +8,6 @@ import image3 from "../assets/images/3.png";
 
 import client1 from "../assets/images/client/01.jpg";
 import client2 from "../assets/images/client/02.jpg";
-import client3 from "../assets/images/client/03.jpg";
-import client4 from "../assets/images/client/04.jpg";
-import client5 from "../assets/images/client/05.jpg";
-import client6 from "../assets/images/client/06.jpg";
 
 import ClientsTwo from "../components/clientTwo";
 import Blogs from "../components/blogs";
@@ -40,7 +36,7 @@ export default function AboutUs() {
     },
     {
       image: client2,
-      name: "Hasti Jatanbhai Sanghvi",
+      name: "Hasti Vipulbhai Hajipara",
       title: "Co-founder",
     },
   ];
@@ -59,7 +55,7 @@ export default function AboutUs() {
 
             <ul className="tracking-[0.5px] mb-0 inline-block mt-5">
               <li className="inline-block capitalize text-[15px] font-medium duration-500 ease-in-out text-white/50 hover:text-white">
-                <Link to="/">Mortal.Ai</Link>
+                <Link to="/">JobPrepAI</Link>
               </li>
               <li className="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180">
                 <i className="mdi mdi-chevron-right"></i>
@@ -122,7 +118,7 @@ export default function AboutUs() {
               </h3>
               <p className="text-slate-400 max-w-xl">
                 "Usually, our colleagues don't jump in the air when they hear
-                e-learning, but the AI videos created with Mortal.Ai have
+                e-learning, but the AI videos created with JobPrepAI have
                 sparked motivation that we haven't seen before."
               </p>
 

@@ -22,7 +22,7 @@ export default function Privacy(){
                     </div>
 
                     <ul className="tracking-[0.5px] mb-0 inline-block mt-5">
-                        <li className="inline-block capitalize font-medium duration-500 ease-in-out hover:text-amber-400"><Link to="/">Mortal.Ai</Link></li>
+                        <li className="inline-block capitalize font-medium duration-500 ease-in-out hover:text-amber-400"><Link to="/">JobPrepAI</Link></li>
                         <li className="inline-block text-base mx-0.5 ltr:rotate-0 rtl:rotate-180"><i className="mdi mdi-chevron-right"></i></li>
                         <li className="inline-block capitalize font-medium duration-500 ease-in-out text-amber-400" aria-current="page">Privacy</li>
                     </ul>

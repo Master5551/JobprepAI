@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoDark from "../assets/images/logo-dark.png";
-import logoWhite from "../assets/images/logo-white.png";
 import logoLight from "../assets/images/logo-light.png";
+import logoWhite from "../assets/images/logo-white.png";
 
 export default function NavLight() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -25,10 +25,10 @@ export default function NavLight() {
         Element.prototype.oMatchesSelector ||
         function (s) {
           var matches = (this.document || this.ownerDocument).querySelectorAll(
-              s
-            ),
+            s
+          ),
             i = matches.length;
-          while (--i >= 0 && matches.item(i) !== this) {}
+          while (--i >= 0 && matches.item(i) !== this) { }
           return i > -1;
         };
     }
@@ -151,36 +151,11 @@ export default function NavLight() {
 
           <div id="navigation" className={`${toggleMenu ? "block" : ""}`}>
             <ul className="navigation-menu nav-light">
-              <li className="has-submenu parent-menu-item">
-                <Link to="#">Home</Link>
-                <span className="menu-arrow"></span>
-                <ul className="submenu">
-                  <li>
-                    <Link to="/" className="sub-menu-item">
-                      Hero One
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/index-two" className="sub-menu-item">
-                      Hero Two
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/index-three" className="sub-menu-item">
-                      Hero Three
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/index-light" className="sub-menu-item">
-                      Hero Light{" "}
-                      <span className="bg-gray-50 dark:bg-slate-800 text-[10px] shadow shadow-gray-300 dark:shadow-gray-700 font-bold px-2.5 py-0.5 rounded h-5 ms-1">
-                        Light
-                      </span>
-                    </Link>
-                  </li>
-                </ul>
+              <li>
+                <Link to="/" className="sub-menu-item">
+                  Home
+                </Link>
               </li>
-
               <li>
                 <Link to="/aboutus" className="sub-menu-item">
                   About Us

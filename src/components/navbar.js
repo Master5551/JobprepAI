@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
-import Switcher from "./switcher"; // Import the Switcher component
 
 export default function Navbar() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -28,10 +27,10 @@ export default function Navbar() {
         Element.prototype.oMatchesSelector ||
         function (s) {
           var matches = (this.document || this.ownerDocument).querySelectorAll(
-              s
-            ),
+            s
+          ),
             i = matches.length;
-          while (--i >= 0 && matches.item(i) !== this) {}
+          while (--i >= 0 && matches.item(i) !== this) { }
           return i > -1;
         };
     }
@@ -165,8 +164,8 @@ export default function Navbar() {
           </ul>
           <div id="navigation" className={`${toggleMenu ? "block" : ""}`}>
             <ul className="navigation-menu">
-              <li className="has-submenu parent-menu-item">
-                <Link to="/index-light" className="sub-menu-item">
+              <li>
+                <Link to="/" className="sub-menu-item">
                   Home
                 </Link>
               </li>

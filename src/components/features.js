@@ -25,7 +25,7 @@ export default function Features({classlist}){
         <>
             <div className={classlist}>
                 <div className="grid grid-cols-1 pb-6 text-center">
-                    <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">AI + video creation = <br/> outstanding <span className="bg-gradient-to-br from-amber-400 to-fuchsia-600 text-transparent bg-clip-text">Mortal.Ai</span></h3>
+                    <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">AI + video creation = <br/> outstanding <span className="bg-gradient-to-br from-amber-400 to-fuchsia-600 text-transparent bg-clip-text">JobPrepAI</span></h3>
 
                     <p className="text-slate-400 max-w-xl mx-auto">Artificial intelligence makes it fast easy to create content for your blog, social media, website, and more!</p>
                 </div>

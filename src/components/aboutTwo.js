@@ -18,7 +18,7 @@ export default function AboutTwo(){
 
                     <div className="order-2 md:order-1">
                         <h4 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">Write Blog Posts, <br/> Stories, & Even Books</h4>
-                        <p className="text-slate-400">"Usually, our colleagues don't jump in the air when they hear e-learning, but the AI videos created with Mortal.Ai have sparked motivation that we haven't seen before."</p>
+                        <p className="text-slate-400">"Usually, our colleagues don't jump in the air when they hear e-learning, but the AI videos created with JobPrepAI have sparked motivation that we haven't seen before."</p>
                         <ul className="list-none text-slate-400 mt-4">
                             <li className="mb-2 flex items-center"><FiCheckCircle className="text-amber-400 h-5 w-5 me-2"/> Digital Marketing Solutions for Tomorrow</li>
                             <li className="mb-2 flex items-center"><FiCheckCircle className="text-amber-400 h-5 w-5 me-2"/> Our Talented & Experienced Marketing Agency</li>

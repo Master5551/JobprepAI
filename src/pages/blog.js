@@ -26,7 +26,7 @@ export default function Blog(){
                     </div>
 
                     <ul className="tracking-[0.5px] mb-0 inline-block mt-5">
-                        <li className="inline-block capitalize text-[15px] font-medium duration-500 ease-in-out text-white/50 hover:text-white"><Link to="/">Mortal.Ai</Link></li>
+                        <li className="inline-block capitalize text-[15px] font-medium duration-500 ease-in-out text-white/50 hover:text-white"><Link to="/">JobPrepAI</Link></li>
                         <li className="inline-block text-base text-white/50 mx-0.5 ltr:rotate-0 rtl:rotate-180"><i className="mdi mdi-chevron-right"></i></li>
                         <li className="inline-block capitalize text-[15px] font-medium duration-500 ease-in-out text-white" aria-current="page">Blogs</li>
                     </ul>
