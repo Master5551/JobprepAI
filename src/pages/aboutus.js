@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import AboutImg from "../assets/images/about.jpg";
 import image1 from "../assets/images/1.png";
 import image2 from "../assets/images/2.png";
 import image3 from "../assets/images/3.png";
+import AboutImg from "../assets/images/about.jpg";
 
 import client1 from "../assets/images/client/01.jpg";
 import client2 from "../assets/images/client/02.jpg";
 
-import ClientsTwo from "../components/clientTwo";
 import Blogs from "../components/blogs";
+import ClientsTwo from "../components/clientTwo";
 import Footer from "../components/footer";
-import Switcher from "../components/switcher";
 import NavLight from "../components/navlight";
+import Switcher from "../components/switcher";
 
 import { FiCheckCircle } from "../assets/icons/vander";
 
@@ -159,11 +159,10 @@ export default function AboutUs() {
                   className="inline-block md:w-1/3 w-full p-2"
                 >
                   <button
-                    className={`${
-                      activeIndex === 0
-                        ? "text-white bg-amber-400"
-                        : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
-                    } px-5 py-3 text-start rounded-md w-full duration-500 `}
+                    className={`${activeIndex === 0
+                      ? "text-white bg-amber-400"
+                      : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                      } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(0)}
                   >
                     <h5 className="text-base font-semibold">Drag and drop</h5>
@@ -178,11 +177,10 @@ export default function AboutUs() {
                   className="inline-block md:w-1/3 w-full p-2"
                 >
                   <button
-                    className={`${
-                      activeIndex === 1
-                        ? "text-white bg-amber-400"
-                        : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
-                    } px-5 py-3 text-start rounded-md w-full duration-500 `}
+                    className={`${activeIndex === 1
+                      ? "text-white bg-amber-400"
+                      : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                      } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(1)}
                   >
                     <h5 className="text-base font-semibold">
@@ -199,11 +197,10 @@ export default function AboutUs() {
                   className="inline-block md:w-1/3 w-full p-2"
                 >
                   <button
-                    className={`${
-                      activeIndex === 2
-                        ? "text-white bg-amber-400"
-                        : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
-                    } px-5 py-3 text-start rounded-md w-full duration-500 `}
+                    className={`${activeIndex === 2
+                      ? "text-white bg-amber-400"
+                      : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                      } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(2)}
                   >
                     <h5 className="text-base font-semibold">Go for Live</h5>

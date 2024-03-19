@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import AboutThree from "../components/aboutThree";
-import ClientsTwo from "../components/clientTwo";
 import Footer from "../components/footer";
 import NavLight from "../components/navlight";
 import Pricing from "../components/pricing";
@@ -52,7 +51,6 @@ export default function Pricings() {
                     </div>
                     <Pricing />
                 </div>
-                <ClientsTwo />
             </section>
             <Footer />
             <Switcher />
