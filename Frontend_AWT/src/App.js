@@ -15,8 +15,9 @@ import Privacy from "./pages/privacy";
 import ResetPassword from "./pages/reset-password";
 import Services from "./pages/services";
 import Signup from "./pages/signup";
-import Terms from "./pages/terms";
 import SpeechPage from "./pages/speechInput";
+import SubjectsPage from "./pages/subjectpage";
+import Terms from "./pages/terms";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Route path="*" element={<Error />} />
       <Route path="contact" element={<Contact />} />
       <Route path="/speech" element={<SpeechPage />} />
+      <Route path="/subject" element={<SubjectsPage />} />
     </Routes>
   );
 }

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import SpeechRecognition, {
     useSpeechRecognition,
 } from "react-speech-recognition";
 
-import NavLight from "../components/navlight";
+import logoDark from "../assets/images/logo-dark.png";
+import logoLight from "../assets/images/logo-light.png";
 import Switcher from "../components/switcher";
 import Timer from "../components/timer"; // Import the Timer component
 
@@ -45,8 +47,22 @@ export default function SpeechPage() {
 
     return (
         <>
-            <NavLight />
-            <div className="container p-8 mt-20">
+            <div className="container">
+                <Link className="logo" to="/">
+                    <img
+                        src={logoDark}
+                        className="h-6 inline-block dark:hidden"
+                        alt=""
+                    />
+                    <img
+                        src={logoLight}
+                        className="h-6 hidden dark:inline-block"
+                        alt=""
+                    />
+                </Link>
+            </div>
+
+            <div className="container p-8">
 
                 <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl text-center leading-normal font-semibold">Job Role :<span className="bg-gradient-to-br from-amber-400 to-fuchsia-600 text-transparent bg-clip-text">Database</span></h3>
                 <div className="grid grid-cols-1 pb-6 text-center">
