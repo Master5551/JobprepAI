@@ -55,7 +55,7 @@ export default function Index() {
 
               <div className="mt-6">
                 <Link
-                  to="/speech"
+                  to="/subject"
                   className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-amber-400 hover:bg-amber-500 border-amber-400 hover:border-amber-500 text-white rounded-md"
                 >
                   Try For Free

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Switcher from '../components/switcher';
 
@@ -48,10 +49,10 @@ const subjects = [
 
 const SubjectCard = ({ name, description }) => {
     return (
-        <div className="bg-black rounded-lg shadow-lg p-6 m-4 transition-transform duration-300 transform hover:scale-105">
+        <Link to={`/speech?subject=${encodeURIComponent(name)}`} className="bg-black rounded-lg shadow-lg p-6 m-4 transition-transform duration-300 transform hover:scale-105">
             <h2 className="text-xl font-semibold mb-2">{name}</h2>
             <p className="text-gray-600">{description}</p>
-        </div>
+        </Link>
     );
 };
 
@@ -67,7 +68,9 @@ const SubjectsPage = () => {
             <Navbar />
             <div className="container mx-auto mt-20">
                 <div className="p-10">
-                    <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl text-center leading-normal font-semibold"><span className="bg-gradient-to-br from-amber-400 to-fuchsia-600 text-transparent bg-clip-text">Subjects</span></h3>
+                    <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl text-center leading-normal font-semibold">
+                        <span className="bg-gradient-to-br from-amber-400 to-fuchsia-600 text-transparent bg-clip-text">Subjects</span>
+                    </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {subjects.map((subject, index) => (
                             <SubjectCard key={index} name={subject.name} description={subject.description} />
