@@ -16,6 +16,7 @@ import ResetPassword from "./pages/reset-password";
 import Services from "./pages/services";
 import Signup from "./pages/signup";
 import Terms from "./pages/terms";
+import SpeechPage from "./pages/speechInput";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <Route path="/error" element={<Error />} />
       <Route path="*" element={<Error />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="/speech" element={<SpeechPage />} />
     </Routes>
   );
 }

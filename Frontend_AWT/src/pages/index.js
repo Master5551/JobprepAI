@@ -3,17 +3,16 @@ import { Link } from "react-router-dom";
 
 import bannerImg from "../assets/images/classic01.png";
 
-import Navbar from "../components/navbar";
-import BrandLogo from "../components/brandLogo";
-import Features from "../components/features";
+import Faq from "../components/Faq";
 import AboutOne from "../components/aboutOne";
+import AboutThree from "../components/aboutThree";
 import AboutTwo from "../components/aboutTwo";
 import AmazingFeatures from "../components/amazingFeatures";
-import AboutThree from "../components/aboutThree";
-import Pricing from "../components/pricing";
-import Faq from "../components/Faq";
-import Blogs from "../components/blogs";
+import BrandLogo from "../components/brandLogo";
+import Features from "../components/features";
 import Footer from "../components/footer";
+import Navbar from "../components/navbar";
+import Pricing from "../components/pricing";
 
 import { TypeAnimation } from "react-type-animation";
 
@@ -56,7 +55,7 @@ export default function Index() {
 
               <div className="mt-6">
                 <Link
-                  to=""
+                  to="/speech"
                   className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-amber-400 hover:bg-amber-500 border-amber-400 hover:border-amber-500 text-white rounded-md"
                 >
                   Try For Free
