@@ -3,16 +3,15 @@ import { Link } from "react-router-dom";
 
 import bannerImg from "../assets/images/classic01.png";
 
-import Navbar from "../components/navbar";
+import AboutOne from "../components/aboutOne";
 import BrandLogo from "../components/brandLogo";
 import Features from "../components/features";
-import AboutOne from "../components/aboutOne";
+import Navbar from "../components/navbar";
 
-import AmazingFeatures from "../components/amazingFeatures";
-import AboutThree from "../components/aboutThree";
-import Pricing from "../components/pricing";
 import Faq from "../components/Faq";
+import AmazingFeatures from "../components/amazingFeatures";
 import Footer from "../components/footer";
+import Pricing from "../components/pricing";
 import Switcher from "../components/switcher";
 
 import { TypeAnimation } from "react-type-animation";
@@ -53,7 +52,7 @@ export default function IndexLight() {
 
               <div className="mt-6">
                 <Link
-                  to=""
+                  to="/subject"
                   className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-amber-400 hover:bg-amber-500 border-amber-400 hover:border-amber-500 text-white rounded-md"
                 >
                   Try For Free
