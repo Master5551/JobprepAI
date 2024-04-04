@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logo-icon-64.png";
 import Switcher from "../components/switcher";
-import axios from "axios";
 
 export default function Signup() {
   function postData(event) {
@@ -18,15 +17,30 @@ export default function Signup() {
       password: password,
     };
     console.log(formData);
-    axios
-      .post("http://localhost:8080/api/employees", formData)
-      .then((response) => {})
+
+    fetch("http://localhost:8080/api/candidate/insert", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Add any additional headers if needed
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Parse response body as JSON
+      })
+      .then((data) => {
+        // Handle successful response
+        console.log("Success:", data);
+      })
       .catch((error) => {
-        console.error("Failed to post data:", error);
         // Handle error response
+        console.error("Error:", error);
       });
   }
-
   return (
     <>
       <section className="relative overflow-hidden h-screen flex items-center bg-[url('../../assets/images/bg/bg-ai.jpg')] bg-no-repeat bg-left bg-cover bg-fixed">

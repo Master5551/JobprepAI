@@ -27,7 +27,6 @@ export default function SpeechPage() {
         // Fetch questions from API when component mounts
         fetchQuestions();
     }, []);
-
     const fetchQuestions = async () => {
         try {
             const response = await fetch(
@@ -45,6 +44,7 @@ export default function SpeechPage() {
             );
         } catch (error) {
             console.error("Error fetching questions:", error);
+
         }
     };
 
