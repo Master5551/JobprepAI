@@ -31,7 +31,7 @@ export default function SpeechPage() {
   const fetchQuestions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/questions/1/15/${subjectName}"
+        "http://localhost:3001/api/questions/1/15/Algorithms"
       );
       console.log(response);
       if (!response.ok) {
