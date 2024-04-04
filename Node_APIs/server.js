@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql"); // Import the mysql module
-
+const router = express.Router();
+const authenticate = require('../middleware/authenticate');
 const app = express();
 const PORT = 3001;
 
@@ -22,9 +23,47 @@ connection.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
+router.get('/protected', authenticate, (req, res) => {
+  // User is authenticated, you can access req.userId to get user ID
+  const userId = req.userId;
+  res.json({ message: 'Protected route accessed', userId: userId });
+});
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+
+  // Query to find user by email
+  const query = "SELECT * FROM candidate WHERE email = ?";
+  connection.query(query, [email], (err, results) => {
+    if (err) {
+      console.error("Error querying database:", err);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+    console.log(results);
+    // Check if user exists
+    if (results.length === 0) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    // User found, compare passwords
+    const user = results[0];
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    console.log(email);
+    console.log(password);
+    // Passwords match, generate JWT token
+    const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" });
+    res.status(200).json({ auth: true, token: token });
+
+    console.log(token);
+  });
+});
 
 // POST endpoint to handle transcript data
 app.post("/api/questionResponses", (req, res) => {
@@ -76,3 +115,5 @@ app.get("/api/questions/:startId/:endId/:subject", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = router;
