@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate hook
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo-icon-64.png";
 import Switcher from "../components/switcher";
 
 export default function Login() {
-  const navigate = useNavigate(); // Initialize useNavigate hook
-  const [error, setError] = useState(null); // State to handle login errors
-  const [loggedIn, setLoggedIn] = useState(false); // State to track login status
-  const [email, setEmail] = useState(""); // State to store email
-  const [password, setPassword] = useState(""); // State to store password
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // Token exists, extract email from token and set it as initial value
-      const decodedToken = decodeToken(token);
-      setEmail(decodedToken.email);
-    }
-  }, []);
-
-  const decodeToken = (token) => {
-    // Decode JWT token
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const decoded = JSON.parse(window.atob(base64));
-    return decoded;
-  };
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -41,19 +24,20 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const { token } = data;
-
-        // Store the token in localStorage
-        localStorage.setItem("token", token);
-
-        // Set loggedIn state to true
         setLoggedIn(true);
+
+        // Save token in localStorage
+        localStorage.setItem("token", data.token);
+       
+        // Print token and user ID to console for verification
+        console.log(data.token);
+        
 
         // Navigate to the home page
         navigate("/");
       } else {
         const data = await response.json();
-        setError(data.message); // Set error message if authentication fails
+        setError(data.message);
       }
     } catch (error) {
       console.error("Login failed:", error.message);

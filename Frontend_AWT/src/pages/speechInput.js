@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SpeechRecognition, {
@@ -10,6 +11,8 @@ import Timer from "../components/timer";
 
 export default function SpeechPage() {
     const [textToCopy, setTextToCopy] = useState();
+    const [totalTime, setTotalTime] = useState(0);
+    const [totalWords, setTotalWords] = useState(0);
     const [questions, setQuestions] = useState([]);
     const [questionResponses, setQuestionResponses] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -18,7 +21,7 @@ export default function SpeechPage() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const subjectName = searchParams.get("subject");
-
+    const token = localStorage.getItem("token");
     useEffect(() => {
         document.documentElement.setAttribute("dir", "ltr");
         document.documentElement.classList.add("dark");
@@ -26,7 +29,27 @@ export default function SpeechPage() {
 
         // Fetch questions from API when component mounts
         fetchQuestions();
+        // Retrieve token from local storage and decode it to get user ID
+        const token = localStorage.getItem("token");
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.id;
+            // console.log("User ID:", userId);
+            // Now you can use the userId as needed
+        }
     }, []);
+
+    useEffect(() => {
+        if (transcript) {
+            const words = transcript.split(" ").length;
+            setTotalWords((prevWords) => prevWords + words);
+        }
+    }, [transcript]);
+    useEffect(() => {
+        console.log("Your Time", totalTime); // Log the totalTime value
+        // Rest of the code
+    }, [totalTime]);
+
     const fetchQuestions = async () => {
         try {
             const response = await fetch(
@@ -63,15 +86,52 @@ export default function SpeechPage() {
 
         console.log(currentQuestionIndex);
 
-        if (currentQuestionIndex === 8) {
+        if (currentQuestionIndex === 8) { // Check if the current question index is 9 (10th question)
+            const formattedTotalTime = convertMillisecondsToTime(totalTime);
+            console.log("Total time for 10 questions in HH:MM:SS format", formattedTotalTime);
             postQuestionResponses();
         }
     };
 
+
     const handleStopButtonClick = () => SpeechRecognition.stopListening();
+    // Define a function to convert milliseconds to hours, minutes, and seconds
+    const convertMillisecondsToTime = (milliseconds) => {
+        // Calculate hours, minutes, and seconds
+        const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+        const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+
+        // Format the time into HH:MM:SS format
+        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        return formattedTime;
+    };
+
 
     const postQuestionResponses = async () => {
         try {
+            if (!token) {
+                console.error("Token not found");
+                return;
+            }
+            // Inside your component, use the function to convert totalTime to HH:MM:SS format
+            const formattedTotalTime = convertMillisecondsToTime(totalTime);
+            console.log("Total time in HH:MM:SS format", formattedTotalTime);
+
+            const rateOfSpeech = totalWords / (totalTime / 60); // words per minute
+            console.log(rateOfSpeech);
+            const decodedToken = jwtDecode(token);
+            const candidate_id = decodedToken.id;
+
+            const dataToSend = {
+                candidate_id: candidate_id,
+                subject_name: subjectName,
+                questionResponses: questionResponses
+            };
+
+            console.log("cid");
+            console.log(candidate_id);
             const response = await fetch(
                 "http://localhost:3001/api/questionResponses",
                 {
@@ -79,7 +139,7 @@ export default function SpeechPage() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(questionResponses),
+                    body: JSON.stringify(dataToSend),
                 }
             );
             if (!response.ok) {
@@ -121,7 +181,7 @@ export default function SpeechPage() {
                     <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
                         Question {currentQuestionIndex + 1}
                     </h3>
-                    <Timer isRunning={startListening}></Timer>
+                    <Timer isRunning={startListening} onUpdate={(time) => setTotalTime(time)} />
                     <p className="text-slate-400 max-w-xl mx-auto">
                         {currentQuestion.question}
                     </p>
@@ -162,3 +222,4 @@ export default function SpeechPage() {
         </>
     );
 }
+

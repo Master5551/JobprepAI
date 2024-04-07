@@ -2,11 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql"); // Import the mysql module
+const jwt = require('jsonwebtoken');
 const router = express.Router();
-const authenticate = require('../middleware/authenticate');
 const app = express();
 const PORT = 3001;
-
+const secretKey = "Hasti@522004";
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -23,15 +26,27 @@ connection.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
-router.get('/protected', authenticate, (req, res) => {
-  // User is authenticated, you can access req.userId to get user ID
-  const userId = req.userId;
-  res.json({ message: 'Protected route accessed', userId: userId });
+// POST endpoint to verify token
+app.post("/verifyToken", (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+
+  // Verify token
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.error("Token verification failed:", err);
+      return res.status(401).json({ message: "Failed to authenticate token" });
+    }
+
+    // Token is valid
+    console.log("Token decoded:", decoded);
+    res.status(200).json({ message: "Token verified successfully", decoded });
+  });
 });
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -57,8 +72,13 @@ app.post("/login", (req, res) => {
 
     console.log(email);
     console.log(password);
+
+    const tokenPayload = {
+      id: user.id,
+      email: user.email  // Add email to the token payload
+    };
     // Passwords match, generate JWT token
-    const token = jwt.sign({ id: user.id }, secretKey, { expiresIn: "1h" });
+    const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
     res.status(200).json({ auth: true, token: token });
 
     console.log(token);
@@ -67,17 +87,21 @@ app.post("/login", (req, res) => {
 
 // POST endpoint to handle transcript data
 app.post("/api/questionResponses", (req, res) => {
-  const questionResponses = req.body;
+  const { questionResponses, candidate_id, subject_name } = req.body;
 
   // Print the received map data
   console.log("Received question responses:");
   console.log(questionResponses);
+  console.log(candidate_id);
   // Stringify questionResponses to store in que_ans_list
   const que_ans_list = JSON.stringify(questionResponses);
-
+  const cid = JSON.stringify(candidate_id);
+  const subjectname = JSON.stringify(subject_name);
+  console.log("cid");
+  console.log(cid);
   // Insert data into the interview table
   const query = `INSERT INTO interview (candidate_id, que_ans_list, subject_name, date_time) VALUES (?, ?, ?, ?)`;
-  const values = ['1', que_ans_list, 'Algorithm', new Date()];
+  const values = [cid, que_ans_list, subjectname, new Date()];
 
   connection.query(query, values, (err, res) => {
     if (err) {
@@ -86,7 +110,7 @@ app.post("/api/questionResponses", (req, res) => {
       return;
     }
     console.log('Question responses stored successfully');
-    res.status(200).send('Question responses received and stored successfully.');
+    // res.status(200).send('Question responses received and stored successfully.');
   });
 });
 
