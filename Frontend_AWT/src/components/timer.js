@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Timer = ({ isRunning }) => {
+const Timer = ({ isRunning, onUpdate }) => {
   const [startTime, setStartTime] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
 
@@ -16,13 +16,14 @@ const Timer = ({ isRunning }) => {
         const currentTime = Date.now();
         const elapsed = Math.floor((currentTime - startTime) / 1000); // Convert to seconds
         setElapsedTime(elapsed);
+        onUpdate(elapsed); // Call onUpdate with elapsed time
       }, 1000); // Update every second
     } else {
       clearInterval(intervalId);
     }
 
     return () => clearInterval(intervalId);
-  }, [isRunning, startTime]);
+  }, [isRunning, startTime, onUpdate]);
 
   // Function to format the timer value into hours, minutes, and seconds
   const formatTime = (time) => {

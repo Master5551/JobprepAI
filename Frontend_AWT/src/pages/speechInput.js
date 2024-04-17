@@ -11,8 +11,6 @@ import Timer from "../components/timer";
 
 export default function SpeechPage() {
     const [textToCopy, setTextToCopy] = useState();
-    const [totalTime, setTotalTime] = useState(0);
-    const [totalWords, setTotalWords] = useState(0);
     const [questions, setQuestions] = useState([]);
     const [questionResponses, setQuestionResponses] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -22,6 +20,9 @@ export default function SpeechPage() {
     const searchParams = new URLSearchParams(location.search);
     const subjectName = searchParams.get("subject");
     const token = localStorage.getItem("token");
+    const [totalWords, setTotalWords] = useState(0);
+    const [totalTime, setTotalTime] = useState(0);
+
     useEffect(() => {
         document.documentElement.setAttribute("dir", "ltr");
         document.documentElement.classList.add("dark");
@@ -45,10 +46,7 @@ export default function SpeechPage() {
             setTotalWords((prevWords) => prevWords + words);
         }
     }, [transcript]);
-    useEffect(() => {
-        console.log("Your Time", totalTime); // Log the totalTime value
-        // Rest of the code
-    }, [totalTime]);
+
 
     const fetchQuestions = async () => {
         try {
@@ -87,27 +85,26 @@ export default function SpeechPage() {
         console.log(currentQuestionIndex);
 
         if (currentQuestionIndex === 8) { // Check if the current question index is 9 (10th question)
-            const formattedTotalTime = convertMillisecondsToTime(totalTime);
-            console.log("Total time for 10 questions in HH:MM:SS format", formattedTotalTime);
-            postQuestionResponses();
+            const totalTime = questionResponses.reduce((total, response) => {
+                return total + response.elapsedTime;
+            }, 0); // Calculate total time by summing up individual question response times
+
+            const totalWords = questionResponses.reduce((total, response) => {
+                return total + response.transcript.split(" ").length;
+            }, 0); // Calculate total number of words by summing up individual question response word counts
+
+            const wordsPerMinute = totalWords / (totalTime / 60); // Calculate words per minute (WPM)
+
+            console.log("Total Time:", totalTime);
+            console.log("Total Words:", totalWords);
+            console.log("Words Per Minute (WPM):", wordsPerMinute);
+            // Now you can do whatever you want with these values, such as storing them in state variables
         }
     };
 
 
+
     const handleStopButtonClick = () => SpeechRecognition.stopListening();
-    // Define a function to convert milliseconds to hours, minutes, and seconds
-    const convertMillisecondsToTime = (milliseconds) => {
-        // Calculate hours, minutes, and seconds
-        const hours = Math.floor(milliseconds / (1000 * 60 * 60));
-        const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-
-        // Format the time into HH:MM:SS format
-        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-        return formattedTime;
-    };
-
 
     const postQuestionResponses = async () => {
         try {
@@ -115,12 +112,7 @@ export default function SpeechPage() {
                 console.error("Token not found");
                 return;
             }
-            // Inside your component, use the function to convert totalTime to HH:MM:SS format
-            const formattedTotalTime = convertMillisecondsToTime(totalTime);
-            console.log("Total time in HH:MM:SS format", formattedTotalTime);
 
-            const rateOfSpeech = totalWords / (totalTime / 60); // words per minute
-            console.log(rateOfSpeech);
             const decodedToken = jwtDecode(token);
             const candidate_id = decodedToken.id;
 
@@ -181,7 +173,16 @@ export default function SpeechPage() {
                     <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
                         Question {currentQuestionIndex + 1}
                     </h3>
-                    <Timer isRunning={startListening} onUpdate={(time) => setTotalTime(time)} />
+                    <Timer
+                        isRunning={startListening}
+                        onUpdate={(time) => {
+                            console.log("Time:", time); // Log the time value to the console
+                            setTotalTime(time); // Update the total time state if needed
+                        }}
+                        setTotalWords={setTotalWords}
+                    />
+
+
                     <p className="text-slate-400 max-w-xl mx-auto">
                         {currentQuestion.question}
                     </p>
@@ -199,15 +200,23 @@ export default function SpeechPage() {
                     </div>
                     <div className="mx-5"></div>
                     <div>
-                        <button
-                            onClick={handleNextButtonClick}
-                            disabled={isLastQuestion}
-                            className="mx-5"
-                        >
-                            <span className="py-[6px] px-4 md:inline hidden items-center justify-center tracking-wider align-middle duration-500 text-sm text-center rounded bg-amber-400/5 hover:bg-amber-400 border border-amber-400/10 hover:border-amber-400 text-amber-400 hover:text-white font-semibold">
-                                Next
-                            </span>
-                        </button>
+                        {currentQuestionIndex === questions.length - 1 ? (
+                            <button onClick={handleNextButtonClick} className="mx-5">
+                                <span className="py-[6px] px-4 md:inline hidden items-center justify-center tracking-wider align-middle duration-500 text-sm text-center rounded bg-amber-400/5 hover:bg-amber-400 border border-amber-400/10 hover:border-amber-400 text-amber-400 hover:text-white font-semibold">
+                                    Submit
+                                </span>
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleNextButtonClick}
+                                disabled={isLastQuestion}
+                                className="mx-5"
+                            >
+                                <span className="py-[6px] px-4 md:inline hidden items-center justify-center tracking-wider align-middle duration-500 text-sm text-center rounded bg-amber-400/5 hover:bg-amber-400 border border-amber-400/10 hover:border-amber-400 text-amber-400 hover:text-white font-semibold">
+                                    Next
+                                </span>
+                            </button>
+                        )}
                     </div>
                     <div>
                         <button onClick={handleStopButtonClick}>
@@ -218,8 +227,7 @@ export default function SpeechPage() {
                     </div>
                 </div>
             </div>
-            <Switcher />
+            <Switcher/>
         </>
     );
 }
-
