@@ -1,43 +1,29 @@
-import React, { useEffect, useState } from 'react';
+// Timer.js
+import React, { useEffect, useState } from "react";
 
-const Timer = ({ isRunning, onUpdate }) => {
-  const [startTime, setStartTime] = useState(0);
-  const [elapsedTime, setElapsedTime] = useState(0);
+const Timer = ({ isRunning }) => {
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
-    let intervalId;
+    let interval;
 
     if (isRunning) {
-      if (!startTime) {
-        setStartTime(Date.now());
-      }
-
-      intervalId = setInterval(() => {
-        const currentTime = Date.now();
-        const elapsed = Math.floor((currentTime - startTime) / 1000); // Convert to seconds
-        setElapsedTime(elapsed);
-        onUpdate(elapsed); // Call onUpdate with elapsed time
-      }, 1000); // Update every second
-    } else {
-      clearInterval(intervalId);
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
     }
 
-    return () => clearInterval(intervalId);
-  }, [isRunning, startTime, onUpdate]);
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
-  // Function to format the timer value into hours, minutes, and seconds
+  // Function to format the timer value into minutes and seconds
   const formatTime = (time) => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = Math.floor(time % 60);
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${ minutes }:${ seconds < 10 ? "0" : "" }${ seconds }`;
   };
 
-  return (
-    <div>
-      <p>Timer: {formatTime(elapsedTime)}</p>
-    </div>
-  );
+  return <p>Timer: {formatTime(time)}</p>;
 };
 
 export default Timer;
