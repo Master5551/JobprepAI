@@ -1,14 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import "./assets/css/materialdesignicons.min.css";
-import "./assets/css/tailwind.css";
-import Blog from "./pages/blog";
 
+import Blog from "./pages/blog";
+import { useState } from "react";
 import AboutUs from "./pages/aboutus";
 import BlogDetails from "./pages/blog-detail";
 import Contact from "./pages/contact";
 import Error from "./pages/error";
 import Helpcenter from "./pages/helpcenter";
-import IndexLight from "./pages/index-light";
 import Login from "./pages/login";
 import Pricing from "./pages/pricing";
 import Privacy from "./pages/privacy";
@@ -18,12 +16,23 @@ import Signup from "./pages/signup";
 import SpeechPage from "./pages/speechInput";
 import SubjectsPage from "./pages/subjectpage";
 import Terms from "./pages/terms";
+import Dashboard from "./dashboard/Dashboard";
+import Layout from "./dashboard/Layout";
+import Scores from "./dashboard/scores";
+import Scorepage from "./dashboard/Scorepage";
+import Answers from "./dashboard/Answers";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<IndexLight />} />
+      {/* <Route path="/sides" element={<Dashboard />} /> */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="scores" element={<Scorepage />} />
+        <Route path="answer" element={<Answers />} />
+      </Route>
       <Route path="/blog" element={<Blog />} />
+
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/services" element={<Services />} />
@@ -36,10 +45,10 @@ function App() {
       <Route path="/terms" element={<Terms />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/error" element={<Error />} />
-      <Route path="*" element={<Error />} />
-      <Route path="contact" element={<Contact />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/speech" element={<SpeechPage />} />
       <Route path="/subject" element={<SubjectsPage />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }

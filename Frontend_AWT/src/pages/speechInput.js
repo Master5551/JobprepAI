@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SpeechRecognition, {
@@ -18,6 +19,9 @@ export default function SpeechPage() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const subjectName = searchParams.get("subject");
+  const token = localStorage.getItem("token");
+  const [totalWords, setTotalWords] = useState(0);
+  const [totalTime, setTotalTime] = useState(0);
 
   useEffect(() => {
     document.documentElement.setAttribute("dir", "ltr");
@@ -26,12 +30,27 @@ export default function SpeechPage() {
 
     // Fetch questions from API when component mounts
     fetchQuestions();
+    // Retrieve token from local storage and decode it to get user ID
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.id;
+      // console.log("User ID:", userId);
+      // Now you can use the userId as needed
+    }
   }, []);
+
+  useEffect(() => {
+    if (transcript) {
+      const words = transcript.split(" ").length;
+      setTotalWords((prevWords) => prevWords + words);
+    }
+  }, [transcript]);
 
   const fetchQuestions = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/questions/1/15/Algorithms"
+        "http://localhost:3001/api/questions/1/10/Algorithms"   
       );
       console.log(response);
       if (!response.ok) {
@@ -63,8 +82,22 @@ export default function SpeechPage() {
 
     console.log(currentQuestionIndex);
 
-    if (currentQuestionIndex === 8) {
-      postQuestionResponses();
+    if (currentQuestionIndex === 9) {
+      // Check if the current question index is 9 (10th question)
+      const totalTime = questionResponses.reduce((total, response) => {
+        return total + response.elapsedTime;
+      }, 0); // Calculate total time by summing up individual question response times
+
+      const totalWords = questionResponses.reduce((total, response) => {
+        return total + response.transcript.split(" ").length;
+      }, 0); // Calculate total number of words by summing up individual question response word counts
+
+      const wordsPerMinute = totalWords / (totalTime / 60); // Calculate words per minute (WPM)
+
+      console.log("Total Time:", totalTime);
+      console.log("Total Words:", totalWords);
+      console.log("Words Per Minute (WPM):", wordsPerMinute);
+      postQuestionResponses(); // Post the question responses when it's the last question
     }
   };
 
@@ -72,6 +105,22 @@ export default function SpeechPage() {
 
   const postQuestionResponses = async () => {
     try {
+      if (!token) {
+        console.error("Token not found");
+        return;
+      }
+
+      const decodedToken = jwtDecode(token);
+      const candidate_id = decodedToken.id;
+      console.log(subjectName);
+      const dataToSend = {
+        // candidate_id: candidate_id,
+        subject_name: subjectName,
+        questionResponses: questionResponses,
+      };
+
+      console.log("cid");
+      console.log(candidate_id);
       const response = await fetch(
         "http://localhost:3001/api/questionResponses",
         {
@@ -79,7 +128,7 @@ export default function SpeechPage() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(questionResponses),
+          body: JSON.stringify(dataToSend),
         }
       );
       if (!response.ok) {
@@ -121,9 +170,17 @@ export default function SpeechPage() {
           <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
             Question {currentQuestionIndex + 1}
           </h3>
-          <Timer isRunning={startListening}></Timer>
+          <Timer
+            isRunning={startListening}
+            onUpdate={(time) => {
+              console.log("Time:", time); // Log the time value to the console
+              setTotalTime(time); // Update the total time state if needed
+            }}
+            setTotalWords={setTotalWords}
+          />
+
           <p className="text-slate-400 max-w-xl mx-auto">
-            {currentQuestion.question}
+            {currentQuestion ? currentQuestion.question : "Loading..."}
           </p>
         </div>
         <div className="main-content mt-8 p-4 border border-gray-300 rounded">
@@ -139,15 +196,23 @@ export default function SpeechPage() {
           </div>
           <div className="mx-5"></div>
           <div>
-            <button
-              onClick={handleNextButtonClick}
-              disabled={isLastQuestion}
-              className="mx-5"
-            >
-              <span className="py-[6px] px-4 md:inline hidden items-center justify-center tracking-wider align-middle duration-500 text-sm text-center rounded bg-amber-400/5 hover:bg-amber-400 border border-amber-400/10 hover:border-amber-400 text-amber-400 hover:text-white font-semibold">
-                Next
-              </span>
-            </button>
+            {isLastQuestion ? (
+              <button onClick={postQuestionResponses} className="mx-5">
+                <span className="py-[6px] px-4 md:inline hidden items-center justify-center tracking-wider align-middle duration-500 text-sm text-center rounded bg-amber-400/5 hover:bg-amber-400 border border-amber-400/10 hover:border-amber-400 text-amber-400 hover:text-white font-semibold">
+                  Submit
+                </span>
+              </button>
+            ) : (
+              <button
+                onClick={handleNextButtonClick}
+                disabled={isLastQuestion}
+                className="mx-5"
+              >
+                <span className="py-[6px] px-4 md:inline hidden items-center justify-center tracking-wider align-middle duration-500 text-sm text-center rounded bg-amber-400/5 hover:bg-amber-400 border border-amber-400/10 hover:border-amber-400 text-amber-400 hover:text-white font-semibold">
+                  Next
+                </span>
+              </button>
+            )}
           </div>
           <div>
             <button onClick={handleStopButtonClick}>
