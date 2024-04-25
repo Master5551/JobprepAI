@@ -10,6 +10,7 @@ import Helpcenter from "./pages/helpcenter";
 import Login from "./pages/login";
 import Pricing from "./pages/pricing";
 import Privacy from "./pages/privacy";
+import Reports from "./pages/report";
 import ResetPassword from "./pages/reset-password";
 import Services from "./pages/services";
 import Signup from "./pages/signup";
@@ -48,7 +49,12 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/speech" element={<SpeechPage />} />
       <Route path="/subject" element={<SubjectsPage />} />
+<<<<<<< HEAD
       <Route path="*" element={<Error />} />
+=======
+      <Route path="/report" element={<Reports />} />
+  
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
     </Routes>
   );
 }

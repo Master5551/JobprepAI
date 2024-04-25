@@ -2,7 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mysql = require("mysql"); // Import the mysql module
+<<<<<<< HEAD
 const jwt = require("jsonwebtoken");
+=======
+const jwt = require('jsonwebtoken');
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
 const router = express.Router();
 const app = express();
 const PORT = 3001;
@@ -47,6 +51,10 @@ app.post("/verifyToken", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
 
@@ -74,7 +82,11 @@ app.post("/login", (req, res) => {
 
     const tokenPayload = {
       id: user.id,
+<<<<<<< HEAD
       email: user.email, // Add email to the token payload
+=======
+      email: user.email  // Add email to the token payload
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
     };
     // Passwords match, generate JWT token
     const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
@@ -99,6 +111,7 @@ app.post("/api/questionResponses", (req, res) => {
   console.log("cid");
   console.log(cid);
   // Insert data into the interview table
+<<<<<<< HEAD
   const query = ` INSERT INTO interview (candidate_id, que_ans_list, subject_name, date_time) VALUES (1, ?, ?, ?)`;
   const values = [que_ans_list, subjectname, new Date()];
 
@@ -109,6 +122,18 @@ app.post("/api/questionResponses", (req, res) => {
       return;
     }
     console.log("Question responses stored successfully");
+=======
+  const query = `INSERT INTO interview (candidate_id, que_ans_list, subject_name, date_time) VALUES (?, ?, ?, ?)`;
+  const values = [cid, que_ans_list, subjectname, new Date()];
+
+  connection.query(query, values, (err, res) => {
+    if (err) {
+      console.error('Error inserting data into interview table: ', err);
+      res.status(500).send('Error storing question responses');
+      return;
+    }
+    console.log('Question responses stored successfully');
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
     // res.status(200).send('Question responses received and stored successfully.');
   });
 });
@@ -120,8 +145,8 @@ app.get("/api/questions/:startId/:endId/:subject", (req, res) => {
   const Subject = req.params.subject;
   connection.query(
     "SELECT * FROM " +
-      Subject +
-      " WHERE id BETWEEN ? AND ? ORDER BY RAND() LIMIT 10",
+    Subject +
+    " WHERE id BETWEEN ? AND ? ORDER BY RAND() LIMIT 10",
     [startId, endId],
     (err, results) => {
       if (err) {
@@ -170,4 +195,9 @@ app.get("/api/answers/:id", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+<<<<<<< HEAD
 module.exports = router;
+=======
+
+module.exports = router;
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
