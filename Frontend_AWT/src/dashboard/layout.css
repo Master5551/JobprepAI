@@ -1,0 +1,22 @@
+/* layoutStyles.css */
+
+.layout-container {
+  background-color: #f3f4f6;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.layout-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}

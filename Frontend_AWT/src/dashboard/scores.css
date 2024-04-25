@@ -1,0 +1,41 @@
+.score-card {
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  margin: 20px;
+}
+
+.score-card-title {
+  margin-top: 0;
+  color: black;
+}
+
+.round-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
+  display: block;
+  border-color: blue;
+}
+
+.description {
+  margin-bottom: 20px;
+  color: black;
+}
+
+.go-to-answers-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.go-to-answers-button:hover {
+  background-color: #0056b3;
+}

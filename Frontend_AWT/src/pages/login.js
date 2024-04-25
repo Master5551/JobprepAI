@@ -28,10 +28,16 @@ export default function Login() {
 
         // Save token in localStorage
         localStorage.setItem("token", data.token);
+<<<<<<< HEAD
+
+        // Print token and user ID to console for verification
+        console.log(data.token);
+=======
        
         // Print token and user ID to console for verification
         console.log(data.token);
         
+>>>>>>> c87e8289b4dd53f06a9d1c5b524df5f774bbee5e
 
         // Navigate to the home page
         navigate("/");

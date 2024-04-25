@@ -5,10 +5,9 @@ import image1 from "../assets/images/1.png";
 import image2 from "../assets/images/2.png";
 import image3 from "../assets/images/3.png";
 import AboutImg from "../assets/images/about.jpg";
-
+import "../assets/css/tailwind.css";
 import client1 from "../assets/images/client/01.jpg";
 import client2 from "../assets/images/client/02.jpg";
-
 
 import ClientsTwo from "../components/clientTwo";
 import Footer from "../components/footer";
@@ -113,10 +112,13 @@ export default function AboutUs() {
             />
             <div className="">
               <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
-                <span className="font-bold">Achieve Efficiency</span> <br /> through AI-driven Solutions
+                <span className="font-bold">Achieve Efficiency</span> <br />{" "}
+                through AI-driven Solutions
               </h3>
               <p className="text-slate-400 max-w-xl">
-                "With JobPrepAI, witness a paradigm shift in traditional learning methods as AI-powered tools revolutionize the learning experience, fostering unprecedented motivation and engagement."
+                "With JobPrepAI, witness a paradigm shift in traditional
+                learning methods as AI-powered tools revolutionize the learning
+                experience, fostering unprecedented motivation and engagement."
               </p>
 
               <ul className="list-none text-slate-400 mt-4">
@@ -125,14 +127,15 @@ export default function AboutUs() {
                   Personalized Feedback to Enhance Learning
                 </li>
                 <li className="mb-2 flex items-center">
-                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" /> Accessible User Dashboard for Tracking Progress
+                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" />{" "}
+                  Accessible User Dashboard for Tracking Progress
                 </li>
                 <li className="mb-2 flex items-center">
-                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" /> Seamless Integration for Streamlined Experience
+                  <FiCheckCircle className="text-amber-400 h-5 w-5 me-2" />{" "}
+                  Seamless Integration for Streamlined Experience
                 </li>
               </ul>
             </div>
-
           </div>
         </div>
 
@@ -145,16 +148,19 @@ export default function AboutUs() {
                   className="inline-block md:w-1/3 w-full p-2"
                 >
                   <button
-                    className={`${activeIndex === 0
-                      ? "text-white bg-amber-400"
-                      : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
-                      } px-5 py-3 text-start rounded-md w-full duration-500 `}
+                    className={`${
+                      activeIndex === 0
+                        ? "text-white bg-amber-400"
+                        : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                    } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(0)}
                   >
-                    <h5 className="text-base font-semibold">Get Personalized Feedback</h5>
+                    <h5 className="text-base font-semibold">
+                      Get Personalized Feedback
+                    </h5>
                     <p className="text-sm mt-1">
-                      JobPrepAI provides tailored feedback to enhance your performance in mock interviews and job preparation.
-
+                      JobPrepAI provides tailored feedback to enhance your
+                      performance in mock interviews and job preparation.
                     </p>
                   </button>
                 </li>
@@ -163,18 +169,19 @@ export default function AboutUs() {
                   className="inline-block md:w-1/3 w-full p-2"
                 >
                   <button
-                    className={`${activeIndex === 1
-                      ? "text-white bg-amber-400"
-                      : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
-                      } px-5 py-3 text-start rounded-md w-full duration-500 `}
+                    className={`${
+                      activeIndex === 1
+                        ? "text-white bg-amber-400"
+                        : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                    } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(1)}
                   >
                     <h5 className="text-base font-semibold">
                       Access User Dashboard
                     </h5>
                     <p className="text-sm mt-1">
-                      JobPrepAI offers a user-friendly dashboard for tracking your progress and optimizing your job preparation journey.
-
+                      JobPrepAI offers a user-friendly dashboard for tracking
+                      your progress and optimizing your job preparation journey.
                     </p>
                   </button>
                 </li>
@@ -183,17 +190,21 @@ export default function AboutUs() {
                   className="inline-block md:w-1/3 w-full p-2"
                 >
                   <button
-                    className={`${activeIndex === 2
-                      ? "text-white bg-amber-400"
-                      : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
-                      } px-5 py-3 text-start rounded-md w-full duration-500 `}
+                    className={`${
+                      activeIndex === 2
+                        ? "text-white bg-amber-400"
+                        : " hover:text-amber-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                    } px-5 py-3 text-start rounded-md w-full duration-500 `}
                     onClick={() => setActiveIndex(2)}
                   >
-                    <h5 className="text-base font-semibold">Enhance Communication Skills</h5>
+                    <h5 className="text-base font-semibold">
+                      Enhance Communication Skills
+                    </h5>
                     <p className="text-sm mt-1">
-                      Refine and polish your speaking abilities through dedicated practice, enabling to articulate your thoughts with clarity and confidence.
+                      Refine and polish your speaking abilities through
+                      dedicated practice, enabling to articulate your thoughts
+                      with clarity and confidence.
                     </p>
-
                   </button>
                 </li>
               </ul>
@@ -236,8 +247,6 @@ export default function AboutUs() {
             <h3 className="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
               The Team
             </h3>
-
-
           </div>
 
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
@@ -268,7 +277,6 @@ export default function AboutUs() {
         </div>
 
         <ClientsTwo />
-
       </section>
       <Footer />
       <Switcher />
