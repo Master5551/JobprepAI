@@ -38,3 +38,10 @@
   color: #ffffff;
   margin-bottom: 16px;
 }
+.dropdown-container {
+  text-align: right;
+}
+
+.dropdown {
+  color: black;
+}

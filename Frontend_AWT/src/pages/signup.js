@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo-icon-64.png";
 import Switcher from "../components/switcher";
 
 export default function Signup() {
+  const navigate = useNavigate();
   function postData(event) {
     event.preventDefault();
     console.log("in the post data ");
@@ -35,6 +36,7 @@ export default function Signup() {
       .then((data) => {
         // Handle successful response
         console.log("Success:", data);
+        navigate("/login");
       })
       .catch((error) => {
         // Handle error response
@@ -61,13 +63,13 @@ export default function Signup() {
                   <div className="grid grid-cols-1">
                     <div className="mb-4">
                       <label className="font-semibold" htmlFor="RegisterName">
-                        Your Name:
+                        Username:
                       </label>
                       <input
                         id="RegisterName"
                         type="text"
                         className="form-input mt-3 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-200 focus:border-amber-400 dark:border-gray-800 dark:focus:border-amber-400 focus:ring-0"
-                        placeholder="Harry"
+                        placeholder="Jatan"
                       />
                     </div>
 
@@ -95,25 +97,7 @@ export default function Signup() {
                       />
                     </div>
 
-                    <div className="mb-4">
-                      <div className="flex items-center w-full mb-0">
-                        <input
-                          className="form-checkbox rounded border-gray-200 dark:border-gray-800 text-amber-400 focus:border-amber-300 focus:ring focus:ring-offset-0 focus:ring-amber-200 focus:ring-opacity-50 me-2 cursor-pointer"
-                          type="checkbox"
-                          value=""
-                          id="AcceptT&C"
-                        />
-                        <label
-                          className="form-check-label text-slate-400 cursor-pointer"
-                          htmlFor="AcceptT&C"
-                        >
-                          I Accept{" "}
-                          <Link to="" className="text-amber-400">
-                            Terms And Condition
-                          </Link>
-                        </label>
-                      </div>
-                    </div>
+                    <div className="mb-4">{/*  */}</div>
 
                     <div className="mb-4">
                       <input
@@ -123,15 +107,6 @@ export default function Signup() {
                         value="Register"
                         onClick={postData}
                       />
-                    </div>
-
-                    <div className="mb-4">
-                      <Link
-                        to=""
-                        className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-gray-800/5 hover:bg-gray-800 border-gray-800/10 hover:border-gray-800 text-gray-800 dark:text-white hover:text-white rounded-md w-full"
-                      >
-                        <i className="mdi mdi-google"></i> Sign in with Google
-                      </Link>
                     </div>
 
                     <div className="text-center">

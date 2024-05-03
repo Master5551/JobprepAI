@@ -1,61 +1,100 @@
-import React from "react";
-import AnswerCard from "./Answercard";
-
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import AnswerCard from "./AnswerCard";
+import PdfDownloadButton from "./Report/pdfbuttondownload";
 const Answers = () => {
+  const location = useLocation();
+  const { id: interviewId, subject: subjectName } = location.state || {};
+  const [qaPairs, setQAPairs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [scoresArray, setscorearray] = useState([]);
+  let userId;
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decodedToken = JSON.parse(atob(token.split(".")[1]));
+    console.log("Decoded JWT token:", decodedToken);
+    userId = decodedToken.id;
+    console.log("User ID:", userId);
+  } else {
+    console.error("JWT token not found in local storage.");
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch answers
+        const responseAnswers = await fetch(
+          `http://localhost:3001/api/answers/${interviewId}`
+        );
+        if (!responseAnswers.ok) {
+          throw new Error("Failed to fetch answers");
+        }
+        const responseData = await responseAnswers.json();
+        const dataArray = JSON.parse(responseData[0].que_ans_list);
+        const scoresArr = responseData[0].scores.split(",").map(Number);
+        setscorearray(scoresArr);
+
+        // Fetch questions for each ID in que_ans_list
+        const questionPromises = dataArray.map(async (item) => {
+          const responseQuestion = await fetch(
+            `http://localhost:3001/api/questionsforscore/${item.id}/${subjectName}`
+          );
+          if (!responseQuestion.ok) {
+            throw new Error("Failed to fetch questions");
+          }
+          const questionData = await responseQuestion.json();
+          return {
+            question: questionData[0].question || "No question available",
+            answer: item.transcript || "No answer available",
+          };
+        });
+
+        // Wait for all question promises to resolve
+        const qaPairsData = await Promise.all(questionPromises);
+        console.log(qaPairsData);
+        // Update state with questions and answers pairs
+        setQAPairs(qaPairsData);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (interviewId && subjectName) {
+      fetchData();
+    }
+  }, [interviewId, subjectName]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
-    <div className="answer-page">
-      <h1
-        style={{
-          marginBottom: "20px",
-          color: "black",
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: "30px",
-        }}
+    <>
+      {qaPairs.map((pair, index) => (
+        <AnswerCard
+          key={index}
+          question={pair.question}
+          transcript={pair.answer}
+        />
+      ))}
+      <div
+        style={{ color: "black", border: "1px solid black", padding: "20px" }}
       >
-        Answers
-      </h1>
-      <AnswerCard
-        question="What is an algorithm?"
-        transcript="An algorithm is a step-by-step procedure or set of rules to solve a specific problem or accomplish a particular task."
-      />
-      <AnswerCard
-        question="What are the characteristics of a good algorithm?"
-        transcript="Some characteristics of a good algorithm include correctness, efficiency, clarity, and generality."
-      />
-      <AnswerCard
-        question="What is time complexity?"
-        transcript="Time complexity is a measure of the amount of time an algorithm takes to run as a function of the length of the input."
-      />
-      <AnswerCard
-        question="What is space complexity?"
-        transcript="Space complexity is a measure of the amount of memory space an algorithm requires as a function of the length of the input."
-      />
-      <AnswerCard
-        question="What are the different types of algorithms?"
-        transcript="There are various types of algorithms, including sorting algorithms, searching algorithms, graph algorithms, and more."
-      />
-      <AnswerCard
-        question="What is a sorting algorithm?"
-        transcript="A sorting algorithm is an algorithm that arranges elements of a list or array in a particular order, such as numerical or lexicographical."
-      />
-      <AnswerCard
-        question="What is a searching algorithm?"
-        transcript="A searching algorithm is an algorithm that finds the location of a target value within a list or array."
-      />
-      <AnswerCard
-        question="What is a recursive algorithm?"
-        transcript="A recursive algorithm is an algorithm that calls itself in order to solve a problem by dividing it into smaller subproblems."
-      />
-      <AnswerCard
-        question="What is a greedy algorithm?"
-        transcript="A greedy algorithm is an algorithm that makes the locally optimal choice at each step with the hope of finding a global optimum."
-      />
-      <AnswerCard
-        question="What is a dynamic programming algorithm?"
-        transcript="Dynamic programming is a method for solving complex problems by breaking them down into simpler subproblems and solving each subproblem only once."
-      />
-    </div>
+        <PdfDownloadButton
+          data={qaPairs}
+          subjectName={subjectName}
+          interviewId={interviewId}
+          scores={scoresArray}
+        ></PdfDownloadButton>
+      </div>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./AnswerCard.css";
 
-const AnswerCard = ({ question, transcript }) => {
+const AnswerCards = ({ question, transcript }) => {
   const [showTranscript, setShowTranscript] = useState(false);
 
   const toggleTranscript = () => {
@@ -14,10 +14,13 @@ const AnswerCard = ({ question, transcript }) => {
       <div className="arrow" onClick={toggleTranscript}>
         &#9660;
       </div>
-      {showTranscript && <div className="transcript">{transcript}</div>}
+      {showTranscript && (
+        <div className="transcript">
+          <div>{transcript}</div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default AnswerCard;
-    
+export default AnswerCards;

@@ -1,0 +1,88 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.image-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.default-icon {
+  width: 100%;
+  height: 100%;
+
+  background-color: lightgrey;
+  border-radius: 50%;
+}
+.file-input {
+  display: none;
+}
+.file-input-label {
+  position: absolute;
+  bottom: 56%;
+  right: 33.9%;
+  transform: translateX(-50%);
+  color: black;
+  padding: 16px;
+  padding-top: 40px;
+  margin-top: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.details-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.label {
+  width: 120px; /* Adjust label width as needed */
+  margin-right: 10px;
+  text-align: left;
+  color: black;
+}
+
+input,
+textarea {
+  flex: 1;
+}
+
+input[type="text"],
+textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+}
+
+textarea {
+  resize: vertical;
+}
+#experience {
+  width: 100%;
+  padding: 8px;
+  margin-left: 14px;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

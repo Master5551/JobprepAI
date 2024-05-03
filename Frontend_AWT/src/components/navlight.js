@@ -25,10 +25,10 @@ export default function NavLight() {
         Element.prototype.oMatchesSelector ||
         function (s) {
           var matches = (this.document || this.ownerDocument).querySelectorAll(
-            s
-          ),
+              s
+            ),
             i = matches.length;
-          while (--i >= 0 && matches.item(i) !== this) { }
+          while (--i >= 0 && matches.item(i) !== this) {}
           return i > -1;
         };
     }
@@ -101,11 +101,11 @@ export default function NavLight() {
         <div className="container">
           <Link className="logo" to="/">
             <span className="inline-block dark:hidden">
-              <img src={logoDark} className="h-6 l-dark" alt="" />
-              <img src={logoWhite} className="h-6 l-light" alt="" />
+              {/* <img src={logoDark} className="h-6 l-dark" alt="" /> */}
+              {/* <img src={logoWhite} className="h-6 l-light" alt="" /> */}
             </span>
             <img
-              src={logoLight}
+              // src={logoLight}
               className="h-6 hidden dark:inline-block"
               alt=""
             />
@@ -157,8 +157,8 @@ export default function NavLight() {
                 </Link>
               </li>
               <li>
-                <Link to="/aboutus" className="sub-menu-item">
-                  About Us
+                <Link to="/" className="sub-menu-item">
+                  Dashboard
                 </Link>
               </li>
               <li>
@@ -175,25 +175,6 @@ export default function NavLight() {
                     <Link to="/services" className="sub-menu-item">
                       Services
                     </Link>
-                  </li>
-
-                  <li className="has-submenu parent-menu-item">
-                    <Link to="#"> Blog </Link>
-                    <span className="submenu-arrow"></span>
-                    <ul className="submenu">
-                      <li>
-                        <Link to="/blog" className="sub-menu-item">
-                          {" "}
-                          Blogs
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/blog-detail" className="sub-menu-item">
-                          {" "}
-                          Blog Detail
-                        </Link>
-                      </li>
-                    </ul>
                   </li>
 
                   <li>

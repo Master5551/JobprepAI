@@ -27,10 +27,10 @@ export default function Navbar() {
         Element.prototype.oMatchesSelector ||
         function (s) {
           var matches = (this.document || this.ownerDocument).querySelectorAll(
-            s
-          ),
+              s
+            ),
             i = matches.length;
-          while (--i >= 0 && matches.item(i) !== this) { }
+          while (--i >= 0 && matches.item(i) !== this) {}
           return i > -1;
         };
     }
@@ -170,18 +170,14 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link to="/aboutus" className="sub-menu-item">
-                  About Us
+                <Link to="/" className="sub-menu-item">
+                  Dashboard
                 </Link>
               </li>
               <li>
                 <Link to="/pricing" className="sub-menu-item">
                   Pricing{" "}
                 </Link>
-              </li>
-
-              <li className="has-submenu parent-parent-menu-item">
-                <Link to="#">Blogs</Link>
               </li>
 
               <li>

@@ -36,7 +36,7 @@ export default function IndexLight() {
                   sequence={[
                     "Job Seekers",
                     1000, // wait 1s before replacing "Mice" with "Hamsters"
-                    "Recuriters",
+                    "Freshers",
                     1000,
                   ]}
                   wrapper="span"
@@ -52,7 +52,7 @@ export default function IndexLight() {
 
               <div className="mt-6">
                 <Link
-                  to="/subject"
+                  to="/jobrole"
                   className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-amber-400 hover:bg-amber-500 border-amber-400 hover:border-amber-500 text-white rounded-md"
                 >
                   Try For Free
@@ -77,7 +77,7 @@ export default function IndexLight() {
       </section>
 
       <section className="relative md:py-24 py-16">
-        <Features classlist="container relative" />
+        {/* <Features classlist="container relative" /> */}
         <AboutOne />
 
         <AmazingFeatures />
@@ -92,8 +92,9 @@ export default function IndexLight() {
             </h3>
 
             <p className="text-slate-400 max-w-xl mx-auto">
-              Artificial intelligence makes it fast easy to create content for
-              your blog, social media, website, and more!
+              Elevate your interview skills with JobPrepAI's innovative
+              platform, designed to guide you towards success in your job search
+              journey.
             </p>
           </div>
           <Pricing />

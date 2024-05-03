@@ -9,37 +9,60 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import "./Barchart.css"; // Import the CSS file
+import "./Barchart.css";
 
 const salesData = [
   {
     name: "Jan",
-    revenue: 4000,
     profit: 2400,
   },
   {
     name: "Feb",
-    revenue: 3000,
     profit: 1398,
   },
   {
     name: "Mar",
-    revenue: 9800,
     profit: 2000,
   },
   {
     name: "Apr",
-    revenue: 3908,
     profit: 2780,
   },
   {
     name: "May",
-    revenue: 4800,
     profit: 1890,
   },
   {
     name: "Jun",
+    profit: 2390,
+  },
+  {
+    name: "Jun",
+    profit: 2390,
+  },
+  {
+    name: "Jun",
+
+    profit: 2390,
+  },
+  {
+    name: "Jun",
     revenue: 3800,
+    profit: 2390,
+  },
+  {
+    name: "Jun",
+
+    profit: 2390,
+  },
+  {
+    name: "Jun",
+
+    profit: 2390,
+  },
+  {
+    name: "Jun",
+
     profit: 2390,
   },
 ];
@@ -49,13 +72,10 @@ const CustomTooltip = ({ active, payload, label }) => {
     return (
       <div className="tooltip-container">
         <p className="tooltip-text">{label}</p>
-        <p className="tooltip-revenue">
-          Revenue:
-          <span className="ml-2">${payload[0].value}</span>
-        </p>
+
         <p className="tooltip-profit">
           Profit:
-          <span className="ml-2">${payload[1].value}</span>
+          <span className="ml-2">${payload[0].value}</span>
         </p>
       </div>
     );
@@ -64,6 +84,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const BarChartComponent = () => {
   return (
+    
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
         width={500}
@@ -78,7 +99,7 @@ const BarChartComponent = () => {
         <YAxis />
         <Tooltip content={<CustomTooltip />} />
         <Legend />
-        <Bar dataKey="revenue" fill="#2563eb" />
+
         <Bar dataKey="profit" fill="#8b5cf6" />
       </BarChart>
     </ResponsiveContainer>

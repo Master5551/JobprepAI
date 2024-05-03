@@ -32,6 +32,15 @@ export default function Login() {
         // Print token and user ID to console for verification
         console.log(data.token);
 
+        const token = localStorage.getItem("token");
+        if (token) {
+          const decodedToken = JSON.parse(atob(token.split(".")[1]));
+          console.log("Decoded JWT token:", decodedToken);
+          const userId = decodedToken.id;
+          console.log("User ID:", userId);
+        } else {
+          console.error("JWT token not found in local storage.");
+        }
         // Navigate to the home page
         navigate("/");
       } else {
@@ -43,7 +52,6 @@ export default function Login() {
       setError("An unexpected error occurred. Please try again later.");
     }
   };
-
   return (
     <>
       <section className="relative overflow-hidden h-screen flex items-center bg-[url('../../assets/images/bg/bg-ai.jpg')] bg-no-repeat bg-left bg-cover bg-fixed">
@@ -53,7 +61,7 @@ export default function Login() {
             <div className="lg:w-1/3 md:w-2/4">
               <div className="rounded shadow bg-white dark:bg-slate-900 p-6">
                 <Link to="/">
-                  <img src={logo} alt="" />
+                  {/* <img src={logo} alt="" /> */}
                 </Link>
 
                 <h5 className="mt-6 text-xl font-semibold">
@@ -98,14 +106,7 @@ export default function Login() {
                         value="Login / Sign in"
                       />
                     </div>
-                    <div className="mb-4">
-                      <Link
-                        to=""
-                        className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-gray-800/5 hover:bg-gray-800 border-gray-800/10 hover:border-gray-800 text-gray-800 dark:text-white hover:text-white rounded-md w-full"
-                      >
-                        <i className="mdi mdi-google"></i> Sign in with Google
-                      </Link>
-                    </div>
+
                     <div className="text-center">
                       <span className="text-slate-400 me-2">
                         Don't have an account ?

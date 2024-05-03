@@ -34,12 +34,9 @@ export default function Index() {
                 The AI Content <br /> Plaform for
                 <TypeAnimation
                   sequence={[
-                    // Same substring at the start will only be typed out once, initially
-                    "Hello",
+                    "Job Seekers",
                     1000, // wait 1s before replacing "Mice" with "Hamsters"
-                    "Hi",
-                    1000,
-                    "asdf",
+                    "Freshers",
                     1000,
                   ]}
                   wrapper="span"
@@ -49,13 +46,14 @@ export default function Index() {
                 />
               </h4>
               <p className="text-slate-400 dark:text-white/60 text-lg max-w-xl mx-auto">
-                Artificial intelligence makes it fast easy to create content for
-                your blog, social media, website, and more!
+                Empowering job seekers to hone their skills through interactive
+                mock interviews, JobPrepAI is revolutionizing the preparation
+                process.
               </p>
 
               <div className="mt-6">
                 <Link
-                  to="/subject"
+                  to="/jobrole"
                   className="py-2 px-5 inline-block font-semibold tracking-wide border align-middle duration-500 text-base text-center bg-amber-400 hover:bg-amber-500 border-amber-400 hover:border-amber-500 text-white rounded-md"
                 >
                   Try For Free
