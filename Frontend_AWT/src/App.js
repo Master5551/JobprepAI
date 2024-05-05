@@ -1,8 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 
-import Blog from "./pages/blog";
-import { useState } from "react";
-
 import BlogDetails from "./pages/blog-detail";
 import Contact from "./pages/contact";
 import Error from "./pages/error";
@@ -27,15 +24,17 @@ import SubjectQuestions from "./dashboard/admin_pages/Subjects/Subject_Question"
 import ProfilePage from "./dashboard/Profilepage";
 import CandidateTable from "./dashboard/admin_pages/Subjects/Student_page";
 import IndexLight from "./pages/index-light";
+import ScoreTable from "./dashboard/Scorepage_table";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Dashboard />} />
-        <Route path="scores/:id" element={<Scorepage />} />
+        <Route path="scores/:id" element={<ScoreTable />} />
         <Route path="answer" element={<Answers />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/an" element={<ProfilePage />} />
       </Route>
       <Route path="/interview" element={<SpeechPage />} />
       <Route path="/admin" element={<Layout />}>

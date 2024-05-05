@@ -9,10 +9,13 @@ const subjectRouter = require("./subjects/subject.routes");
 const errors = require("./middleware/error");
 const router = express.Router();
 const app = express();
+let activeUsers = 0;
+
 const PORT = 3001;
 
 const secretKey = "Hasti@522004";
 const upload = multer({ dest: "uploads/" });
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Middleware
 app.use(cors());
@@ -52,7 +55,6 @@ connection.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
-// POST endpoint to verify token
 app.post("/verifyToken", (req, res) => {
   const { token } = req.body;
 
@@ -73,8 +75,9 @@ app.post("/verifyToken", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", (req, res, next) => {
   const { email, password } = req.body;
+  activeUsers++;
 
   // Query to find user by email
   const query = "SELECT * FROM candidate WHERE email = ?";
@@ -94,7 +97,6 @@ app.post("/login", (req, res) => {
     if (user.password !== password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-
     console.log(email);
     console.log(password);
 
@@ -104,13 +106,28 @@ app.post("/login", (req, res) => {
       email: user.email,
       isadmin: user.isadmin,
     };
+
     // Passwords match, generate JWT token
     const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
+
+    console.log(`User logged in. Active users: ${activeUsers}`);
+
     res.status(200).json({ auth: true, token: token });
 
     console.log(token);
+    next();
   });
 });
+app.get("/logout", (req, res) => {
+  activeUsers = Math.max(activeUsers - 1, 0);
+  console.log(`User logged out. Active users: ${activeUsers}`);
+  res.send(`User logged out. Active users: ${activeUsers}`);
+});
+
+app.get("/api/active-users", (req, res) => {
+  res.json({ activeUsers });
+});
+
 app.get("/api/:id", (req, res) => {
   const interviewId = req.params.id;
   const candidateId = 3;
@@ -260,6 +277,159 @@ app.post("/api/upload", upload.single("image"), (req, res) => {
       res.status(500).send("Error updating profile picture");
     } else {
       res.status(200).json({ imageUrl });
+    }
+  });
+});
+app.get("/gettotalinterviewsbyyear/:candidateId?", (req, res) => {
+  const candidateId = req.params.candidateId;
+
+  let sqlQuery;
+  let sqlParams;
+
+  if (candidateId) {
+    // If candidateId is provided, filter interviews for that candidate
+    sqlQuery =
+      "SELECT YEAR(date_time) AS interview_year, COUNT(*) AS num_interview FROM interview WHERE candidate_id = ? GROUP BY YEAR(date_time) ORDER BY interview_year;";
+    sqlParams = [candidateId];
+  } else {
+    // If no candidateId is provided, get total interviews for all candidates
+    sqlQuery =
+      "SELECT YEAR(date_time) AS interview_year, COUNT(*) AS num_interview FROM interview GROUP BY YEAR(date_time) ORDER BY interview_year;";
+    sqlParams = [];
+  }
+
+  // Execute the SQL query
+  connection.query(sqlQuery, sqlParams, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+app.get("/getuniquesubjects/:candidateId", (req, res) => {
+  // SQL query to get the number of interviews year-wise
+  const candidateId = req.params.candidateId;
+  const sqlQuery =
+    "SELECT COUNT(DISTINCT subject_name) AS count FROM interview WHERE candidate_id = ?;";
+
+  // Execute the SQL query
+  connection.query(sqlQuery, [candidateId], (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/gettotalinterviews/:candidateId", (req, res) => {
+  // SQL query to get the number of interviews year-wise
+  const candidateId = req.params.candidateId;
+  const sqlQuery =
+    "SELECT COUNT(id) AS count FROM interview WHERE candidate_id = ?;";
+
+  // Execute the SQL query
+  connection.query(sqlQuery, [candidateId], (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/getinterviewcountbyrole/:candidateId/:subjectname", (req, res) => {
+  const subject_name = req.params.subjectname;
+  const candidateId = req.params.candidateId;
+  const sqlQuery =
+    "SELECT COUNT(*) AS count FROM interview WHERE candidate_id = ? AND subject_name = ?;";
+
+  // Execute the SQL query
+  connection.query(sqlQuery, [candidateId, subject_name], (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/totalusers", (req, res) => {
+  const sqlQuery = "SELECT COUNT(id) AS count FROM Candidate;";
+
+  // Execute the SQL query
+  connection.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/totalinterview", (req, res) => {
+  const sqlQuery = "SELECT COUNT(id) AS count FROM interview;";
+  connection.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/totalsubjects", (req, res) => {
+  const sqlQuery =
+    "SELECT COUNT(*) AS count FROM information_schema.tables WHERE table_schema = 'jobprepai' AND table_type = 'BASE TABLE' AND table_name NOT IN ('candidate', 'interview');";
+  connection.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
+    }
+  });
+});
+app.get("/admin/:subjectName", (req, res) => {
+  const subjectName = req.params.subjectName;
+
+  // Your database query
+  const sqlQuery = `
+    SELECT MAX(average_score) AS count 
+    FROM interview 
+    WHERE subject_name = ?
+  `;
+
+  connection.query(sqlQuery, [subjectName], (error, results, fields) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+
+    // Extract the max_average_score from the result
+    const count = results[0].count;
+
+    // Send the max average score as the response
+    res.json([{ count: count }]);
+  });
+});
+app.get("/getaveragescoreline/:candidateId", (req, res) => {
+  // SQL query to get the number of interviews year-wise
+  const candidateId = req.params.candidateId;
+  const sqlQuery =
+    "SELECT date_time, average_score FROM interview WHERE candidate_id = ? ORDER BY date_time;";
+
+  // Execute the SQL query
+  connection.query(sqlQuery, [candidateId], (error, results) => {
+    if (error) {
+      console.error("Error executing SQL query:", error);
+      res.status(500).json({ error: "Internal server error" });
+    } else {
+      res.json(results);
     }
   });
 });

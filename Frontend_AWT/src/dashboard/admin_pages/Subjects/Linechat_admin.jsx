@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -9,10 +9,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Button } from "@mui/material";
-import "./Barchart.css";
+import "../../linechart.css"; // Assuming you'll create a separate CSS file for LineChart
 
-const BarChartComponent = () => {
+const LineChartComponentAdmin = () => {
   let userId;
   const token = localStorage.getItem("token");
   if (token) {
@@ -25,14 +24,12 @@ const BarChartComponent = () => {
   }
 
   const [salesData, setSalesData] = useState([]);
-  const [showMonthly, setShowMonthly] = useState(false); // State for showing monthly button
-  const [tooltipColor, setTooltipColor] = useState(""); // State for tooltip color
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/gettotalinterviewsbyyear/${userId}`
+          `http://localhost:3001/gettotalinterviewsbyyear`
         );
 
         if (!response.ok) {
@@ -54,11 +51,6 @@ const BarChartComponent = () => {
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-      // Get color of the first bar
-      const color = payload[0].fill;
-      // Set color of the button
-      setTooltipColor(color);
-
       return (
         <div className="tooltip-container">
           <p className="tooltip-text">{label}</p>
@@ -71,41 +63,25 @@ const BarChartComponent = () => {
     }
   };
 
-  const handleMonthlyClick = (label) => {
-    // Handle logic for monthly button click, e.g., display monthly data
-    console.log("Monthly button clicked for:", label);
-  };
-
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <div className="chart-container">
-        <BarChart
-          width={500}
-          height={300}
-          data={salesData}
-          margin={{
-            right: 30,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year" />
-          <YAxis />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Bar dataKey="number" fill="#8b5cf6" />
-        </BarChart>
-        {showMonthly && (
-          <Button
-            className="monthly-button"
-            onClick={() => handleMonthlyClick("label")}
-            style={{ backgroundColor: tooltipColor, color: "black" }}
-          >
-            Monthly
-          </Button>
-        )}
-      </div>
+      <LineChart
+        width={500}
+        height={300}
+        data={salesData}
+        margin={{
+          right: 30,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="year" />
+        <YAxis />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend />
+        <Line type="monotone" dataKey="number" stroke="#8b5cf6" />
+      </LineChart>
     </ResponsiveContainer>
   );
 };
 
-export default BarChartComponent;
+export default LineChartComponentAdmin;

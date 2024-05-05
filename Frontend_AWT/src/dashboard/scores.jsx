@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./scores.css";
-import algo from "../assets/images/neural.png";
 import RoundProgressBar from "./Result_score";
 
 const GoToAnswer = ({ interviewId, subjectName }) => {

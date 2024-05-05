@@ -32,9 +32,9 @@ function ProfilePage() {
       );
 
       const data = response.data;
-      console.log(data);
+
       // Update state with fetched data
-      setImageUrl(data.profile_pic_path || "");
+      setImageUrl(data.imageUrl || "");
       setFirstName(data.firstName || "");
       setMiddleName(data.middleName || "");
       setLastName(data.lastName || "");
@@ -87,6 +87,7 @@ function ProfilePage() {
   const handleSubmitClick = async () => {
     setEditable(false); // Disable editing mode
     try {
+      console.log(imageUrl + "fjaksdklfj");
       const response = await axios.put(
         `http://localhost:8080/api/candidate/${userId}`,
         {
@@ -96,6 +97,8 @@ function ProfilePage() {
           description,
           githubLink,
           linkedinLink,
+          imageUrl,
+          // profile_pic_path,
         }
       );
       console.log("Updated data:", response.data);
@@ -179,6 +182,7 @@ function ProfilePage() {
             Description:
           </label>
           <textarea
+            style={{ color: "black" }} // Set the text color to black
             id="description"
             placeholder="Short Description (500 characters)"
             maxLength={500}

@@ -1,24 +1,18 @@
 .score-card {
   border-radius: 10px;
-  border: 1px solid black;
+  border: 5px solid lightgray;
   padding: 20px;
   text-align: center;
   width: 300px;
   margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding box-shadow */
+  background-color: #f0f0f0; /* Changing background color */
+  transition: box-shadow 0.3s ease; /* Adding transition effect */
 }
 
 .score-card-title {
   margin-top: 0;
   color: black;
-}
-
-.round-image {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  margin: 20px auto;
-  display: block;
-  border-color: blue;
 }
 
 .description {

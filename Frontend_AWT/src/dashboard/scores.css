@@ -1,10 +1,18 @@
 .score-card {
   border-radius: 10px;
-  border: 1px solid black;
+  border: 5px solid lightgray;
   padding: 20px;
   text-align: center;
   width: 300px;
   margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding box-shadow */
+  background-color: #f0f0f0; /* Changing background color */
+  transition: box-shadow 0.3s ease; /* Adding transition effect */
+}
+
+.score-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Changing box-shadow on hover */
+  background-color: #f5f5f5; /* Lightening the background color on hover */
 }
 
 .score-card-title {
@@ -33,7 +41,7 @@
   border-radius: 5px;
   padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Adding transition effect */
 }
 
 .go-to-answers-button:hover {

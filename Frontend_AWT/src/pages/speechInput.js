@@ -131,10 +131,16 @@ export default function SpeechPage() {
       const decodedToken = jwtDecode(token);
       const candidate_id = decodedToken.id;
       console.log(candidate_id);
+
+      // Ensure that the transcript of the last question response is included
+      const updatedQuestionResponses = [...questionResponses];
+      updatedQuestionResponses[currentQuestionIndex].transcript = transcript;
+      setQuestionResponses(updatedQuestionResponses);
+
       const dataToSend = {
         candidate_id: candidate_id,
         subject_name: subjectName,
-        questionResponses: questionResponses,
+        questionResponses: updatedQuestionResponses,
       };
       console.log(dataToSend.questionResponses);
 
@@ -160,7 +166,7 @@ export default function SpeechPage() {
       const dataToSendSecondAPI = {
         candidate_id: candidate_id,
         subject_name: subjectName,
-        entries: questionResponses.map((response) => ({
+        entries: updatedQuestionResponses.map((response) => ({
           id: response.id,
           transcript: response.transcript,
         })),

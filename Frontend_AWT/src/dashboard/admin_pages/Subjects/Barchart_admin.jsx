@@ -10,9 +10,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Button } from "@mui/material";
-import "./Barchart.css";
+import "../../Barchart.css";
 
-const BarChartComponent = () => {
+const BarChartComponentAdmin = () => {
   let userId;
   const token = localStorage.getItem("token");
   if (token) {
@@ -32,7 +32,7 @@ const BarChartComponent = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/gettotalinterviewsbyyear/${userId}`
+          `http://localhost:3001/gettotalinterviewsbyyear/`
         );
 
         if (!response.ok) {
@@ -108,4 +108,4 @@ const BarChartComponent = () => {
   );
 };
 
-export default BarChartComponent;
+export default BarChartComponentAdmin;

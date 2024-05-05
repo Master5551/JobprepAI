@@ -121,22 +121,17 @@ export default function Scorepage() {
               (interview) =>
                 !selectedSubject || interview.subject_name === selectedSubject
             )
-            .map(
-              (interview) => (
-                console.log("Interview scores:", interview.scores), //Console log interview scores
-                (
-                  <Grid item xs={4} key={interview.id}>
-                    <ScoreCard
-                      title={`Interview ${interview.id}`}
-                      subtitle={interview.subject_name}
-                      interviewId={interview.id}
-                      subjectName={interview.subject_name}
-                      scores={interview.scores}
-                    />
-                  </Grid>
-                )
-              )
-            )}
+            .map((interview) => (
+              <Grid item xs={4} key={interview.id}>
+                <ScoreCard
+                  title={`Interview ${interview.id}`}
+                  subtitle={interview.subject_name}
+                  interviewId={interview.id}
+                  subjectName={interview.subject_name}
+                  scores={interview.scores}
+                />
+              </Grid>
+            ))}
         </Grid>
       )}
     </div>

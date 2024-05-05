@@ -32,7 +32,10 @@ const Answers = () => {
         }
         const responseData = await responseAnswers.json();
         const dataArray = JSON.parse(responseData[0].que_ans_list);
-        const scoresArr = responseData[0].scores.split(",").map(Number);
+
+        const scoresArr = responseData[0].scores
+          ? responseData[0].scores.split(",").map(Number)
+          : [];
         setscorearray(scoresArr);
 
         // Fetch questions for each ID in que_ans_list
@@ -87,12 +90,16 @@ const Answers = () => {
       <div
         style={{ color: "black", border: "1px solid black", padding: "20px" }}
       >
-        <PdfDownloadButton
-          data={qaPairs}
-          subjectName={subjectName}
-          interviewId={interviewId}
-          scores={scoresArray}
-        ></PdfDownloadButton>
+        {scoresArray.length > 0 ? (
+          <PdfDownloadButton
+            data={qaPairs}
+            subjectName={subjectName}
+            interviewId={interviewId}
+            scores={scoresArray}
+          />
+        ) : (
+          <h1>Processing...</h1>
+        )}
       </div>
     </>
   );

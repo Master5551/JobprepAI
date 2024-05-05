@@ -1,3 +1,4 @@
+import { FaDailymotion } from "react-icons/fa";
 import {
   HiOutlineViewGrid,
   HiOutlineCube,
@@ -29,12 +30,21 @@ if (token) {
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
+    key: "dashboard",
+    label: "dashboard",
+    path: "/",
+    icon: <FaDailymotion />,
+    isadmin: false,
+  },
+
+  {
     key: "orders",
     label: "Students",
     path: "/admin/students",
     icon: <MdLeaderboard />,
     isadmin: true,
   },
+
   {
     key: "products",
     label: "Score Cards",
@@ -51,13 +61,6 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     isadmin: true,
   },
 
-  {
-    key: "dashboard",
-    label: "Charts",
-    path: "/",
-    icon: <HiOutlineCube />,
-    isadmin: false,
-  },
   {
     key: "Interview",
     label: "Interview",

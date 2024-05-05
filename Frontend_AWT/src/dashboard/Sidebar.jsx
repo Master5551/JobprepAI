@@ -1,12 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 import { Link, useLocation } from "react-router-dom";
-import {
-  FcAcceptDatabase,
-  FcAdvertising,
-  FcDatabase,
-  FcMusic,
-} from "react-icons/fc";
 import { HiOutlineLogout } from "react-icons/hi";
 import {
   DASHBOARD_SIDEBAR_LINKS,
@@ -15,7 +9,9 @@ import {
 import "./sidebar.css";
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
-export default function Sidebar({}) {
+// import { Navigate } from "react-router-dom";
+export default function Sidebar() {
+  // const navigate = Navigate();
   let isadmin;
   const { pathname } = useLocation();
   const token = localStorage.getItem("token");
@@ -28,6 +24,26 @@ export default function Sidebar({}) {
     console.error("JWT token not found in local storage.");
   }
 
+  const handleLogout = async () => {
+    try {
+      // Make the API call asynchronously
+      const response = await fetch("http://localhost:3001/logout", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        console.log("Logout API call successful");
+      } else {
+        console.error("Logout API call failed");
+      }
+    } catch (error) {
+      console.error("Error occurred during logout API call:", error);
+    }
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
@@ -37,7 +53,11 @@ export default function Sidebar({}) {
             className="h-6 inline-block dark:hidden"
             alt=""
           />
-          <img src={logoDark} className="h-6 hidden dark:inline-block" alt="" />
+          <img
+            src={logoLight}
+            className="h-6 hidden dark:inline-block"
+            alt=""
+          />
         </Link>
       </div>
       <div className="sidebar-links">
@@ -53,7 +73,11 @@ export default function Sidebar({}) {
         {DASHBOARD_SIDEBAR_BOTTOM_LINKS.filter(
           (link) => !link.isadmin || (link.isadmin && isadmin)
         ).map((link) => (
-          <SidebarBottomLink key={link.key} link={link} />
+          <SidebarBottomLink
+            key={link.key}
+            link={link}
+            handleLogout={handleLogout}
+          />
         ))}
       </div>
     </div>
@@ -76,8 +100,15 @@ function SidebarLink({ link }) {
   );
 }
 
-function SidebarBottomLink({ link }) {
+function SidebarBottomLink({ link, handleLogout }) {
   const { pathname } = useLocation();
+
+  const handleClick = (event) => {
+    if (link.key === "logout") {
+      console.log("clicked logout");
+      handleLogout(); // Call the handleLogout function passed as prop
+    }
+  };
 
   return (
     <Link
@@ -85,6 +116,7 @@ function SidebarBottomLink({ link }) {
       className={classNames("sidebar-link", {
         "bg-neutral-700 text-white": pathname === link.path,
       })}
+      onClick={handleClick}
     >
       {link.icon}
       {link.label}

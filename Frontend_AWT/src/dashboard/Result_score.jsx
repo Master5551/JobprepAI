@@ -41,6 +41,7 @@ const RoundProgressBar = ({ percent }) => {
           textAnchor="middle"
           fill="#000"
           fontSize="20"
+          fontWeight="bold"
         >
           {`${progress}%`}
         </text>

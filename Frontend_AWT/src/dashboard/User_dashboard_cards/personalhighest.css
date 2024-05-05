@@ -1,0 +1,51 @@
+.card {
+  width: 250px;
+  height: 200px;
+  border-radius: 10px;
+  border: 1px solid lightgreen;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header {
+  text-align: center;
+}
+.icon-container,
+.menu {
+  width: 30px;
+  height: 30px;
+}
+
+.icon,
+.menu-icon,
+.arrow-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.number {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  margin-bottom: 58px;
+}
+
+.subtitle {
+  font-size: 18px;
+  text-align: center;
+}
+
+.percentage {
+  font-size: 18px;
+  color: green;
+}
